@@ -1,0 +1,13 @@
+Author: Kevin Chevreuil - Kaisen <kaisen@kaisenlinux.org>
+
+--- sslyze-4.0.4.orig/docs/conf.py
++++ sslyze-4.0.4/docs/conf.py
+@@ -37,7 +37,7 @@ from sslyze import __version__  # noqa:
+ extensions = [
+     'sphinx.ext.autodoc',
+     'sphinx.ext.napoleon',
+-    'sphinx_autodoc_typehints'
++#    'sphinx_autodoc_typehints'
+ ]
+ 
+ # Add any paths that contain templates here, relative to this directory.

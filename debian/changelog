@@ -1,0 +1,5 @@
+sslyze (4.0.4-1kaisen1) kaisen-testing; urgency=medium
+
+  * First packaging for Kaisen Linux
+
+ -- Kevin Chevreuil - Kaisen <kaisen@kaisenlinux.org>  Thu, 25 Mar 2021 20:15:33 +0200
