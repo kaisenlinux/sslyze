@@ -1,13 +1,13 @@
 Author: Kevin Chevreuil - Kaisen <kaisen@kaisenlinux.org>
 
---- sslyze-4.0.4.orig/docs/conf.py
-+++ sslyze-4.0.4/docs/conf.py
-@@ -37,7 +37,7 @@ from sslyze import __version__  # noqa:
- extensions = [
-     'sphinx.ext.autodoc',
-     'sphinx.ext.napoleon',
--    'sphinx_autodoc_typehints'
-+#    'sphinx_autodoc_typehints'
- ]
+--- sslyze-5.0.0.orig/docs/conf.py
++++ sslyze-5.0.0/docs/conf.py
+@@ -36,7 +36,7 @@ from sslyze import __version__  # noqa:
+ # Add any Sphinx extension module names here, as strings. They can be
+ # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
+ # ones.
+-extensions = ["sphinx.ext.autodoc", "sphinx.ext.napoleon", "sphinx_autodoc_typehints"]
++extensions = ["sphinx.ext.autodoc", "sphinx.ext.napoleon"]
  
  # Add any paths that contain templates here, relative to this directory.
+ templates_path = ["_templates"]

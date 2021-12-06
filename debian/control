@@ -13,8 +13,9 @@ Build-Depends: debhelper-compat (= 13),
                python3-sphinx,
                python3-sphinx-rtd-theme,
                python3-tls-parser (>= 1.2.2),
-               python3-typing-extensions
-Standards-Version: 4.5.1
+               python3-typing-extensions,
+	       python3-pydantic,
+Standards-Version: 4.6.0
 Homepage: https://github.com/nabla-c0d3/sslyze
 Vcs-Git: https://gitlab.com/kaisenlinux/packages/sslyze.git
 Vcs-Browser: https://gitlab.com/kaisenlinux/packages/sslyze
@@ -25,6 +26,7 @@ Depends: python3-nassl (>= 4.0.0),
          python3-pkg-resources,
          python3-tls-parser (>= 1.2.2),
          python3-typing-extensions,
+	 python3-pydantic,
          ${misc:Depends},
          ${python3:Depends},
          ${sphinxdoc:Depends}
