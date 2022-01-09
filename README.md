@@ -2,7 +2,7 @@ SSLyze
 ======
 
 ![Run Tests](https://github.com/nabla-c0d3/sslyze/workflows/Run%20Tests/badge.svg)
-[![Downloads](https://pepy.tech/badge/sslyze)](https://pepy.tech/badge/sslyze)
+[![Downloads](https://pepy.tech/badge/sslyze/month)](https://pepy.tech/project/sslyze)
 [![PyPI version](https://img.shields.io/pypi/v/sslyze.svg)](https://pypi.org/project/sslyze/)
 [![Python version](https://img.shields.io/pypi/pyversions/sslyze.svg)](https://pypi.org/project/sslyze/)
 
@@ -28,13 +28,27 @@ Python application, such as a function deployed to AWS Lambda.
 Quick start
 -----------
 
-SSLyze can be installed directly via pip:
+On Windows, Linux (x86 or x64) and macOS, SSLyze can be installed directly via pip:
 
 ```
 $ pip install --upgrade pip setuptools wheel
 $ pip install --upgrade sslyze
 $ python -m sslyze www.yahoo.com www.google.com "[2607:f8b0:400a:807::2004]:443"
 ```
+
+It can also be used via Docker:
+
+```
+$ docker run --rm -it nablac0d3/sslyze:5.0.0 www.google.com
+```
+
+Lastly, a pre-compiled Windows executable can be downloaded from [the Releases
+page](https://github.com/nabla-c0d3/sslyze/releases).
+
+Python API Documentation
+------------------------
+
+Documentation for SSLyze's Python API is [available here][documentation].
 
 Usage as a CI/CD step
 ---------------------
@@ -47,9 +61,9 @@ is not compliant.
 $ python -m sslyze mozilla.com
 ```
 ```
-    Checking results against Mozilla's "intermediate" configuration. See https://ssl-config.mozilla.org/ for more details.
+Checking results against Mozilla's "intermediate" configuration. See https://ssl-config.mozilla.org/ for more details.
 
-    mozilla.com:443: OK - Compliant.
+mozilla.com:443: OK - Compliant.
 ```
 
 The Mozilla configuration to check against can be configured via `--mozilla-config={old, intermediate, modern}`:
@@ -57,13 +71,13 @@ The Mozilla configuration to check against can be configured via `--mozilla-conf
 $ python -m sslyze --mozilla-config=modern mozilla.com
 ```
 ```
-    Checking results against Mozilla's "modern" configuration. See https://ssl-config.mozilla.org/ for more details.
+Checking results against Mozilla's "modern" configuration. See https://ssl-config.mozilla.org/ for more details.
 
-    mozilla.com:443: FAILED - Not compliant.
-        * certificate_types: Deployed certificate types are {'rsa'}, should have at least one of {'ecdsa'}.
-        * certificate_signatures: Deployed certificate signatures are {'sha256WithRSAEncryption'}, should have at least one of {'ecdsa-with-SHA512', 'ecdsa-with-SHA256', 'ecdsa-with-SHA384'}.
-        * tls_versions: TLS versions {'TLSv1.2'} are supported, but should be rejected.
-        * ciphers: Cipher suites {'TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384', 'TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305_SHA256', 'TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256'} are supported, but should be rejected.
+mozilla.com:443: FAILED - Not compliant.
+    * certificate_types: Deployed certificate types are {'rsa'}, should have at least one of {'ecdsa'}.
+    * certificate_signatures: Deployed certificate signatures are {'sha256WithRSAEncryption'}, should have at least one of {'ecdsa-with-SHA512', 'ecdsa-with-SHA256', 'ecdsa-with-SHA384'}.
+    * tls_versions: TLS versions {'TLSv1.2'} are supported, but should be rejected.
+    * ciphers: Cipher suites {'TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384', 'TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305_SHA256', 'TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256'} are supported, but should be rejected.
 ```
 
 This can be used to easily run an SSLyze scan as a CI/CD step.
@@ -84,11 +98,6 @@ The tests can then be run using:
 ```
 $ invoke test
 ```
-
-API Documentation
------------------
-
-Documentation for SSLyze's Python API is [available here][documentation].
 
 License
 -------
