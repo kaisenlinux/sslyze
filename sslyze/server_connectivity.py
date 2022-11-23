@@ -15,7 +15,7 @@ from sslyze.errors import (
     TlsHandshakeFailed,
     ConnectionToServerFailed,
 )
-from sslyze.connection_helpers.tls_connection import SslConnection
+from sslyze.connection_helpers.tls_connection import SslConnection, _HANDSHAKE_REJECTED_TLS_ERRORS
 
 
 @unique
@@ -102,7 +102,7 @@ def check_connectivity_to_server(
         raise ServerTlsConfigurationNotSupported(
             server_location=server_location,
             network_configuration=network_configuration,
-            error_message="Probing failed: could not find a TLS version and cipher suite supported by the server",
+            error_message="TLS probing failed: could not find a TLS version and cipher suite supported by the server",
         )
 
     # If the server requested a client certificate, detect if the client cert is optional or required
@@ -354,6 +354,23 @@ def _detect_client_auth_requirement_with_tls_1_3(
         # The timeout is triggered when calling read() because the server has client auth optional and is waiting for
         # more data from us the client
         client_auth_requirement = ClientAuthRequirementEnum.OPTIONAL
+
+    except _nassl.OpenSSLError as e:
+        # Here we re-use some of the rejection handling logic already implemented in SslConnection.connect()
+        # This is because the call to read(1) in the try block might trigger similar errors as connect()
+        # https://github.com/nabla-c0d3/sslyze/issues/562
+        # TODO(AD): Find a way to unify exception handling between the two calls
+        openssl_error_message = e.args[0]
+        is_known_server_rejection_error = False
+        for error_msg in _HANDSHAKE_REJECTED_TLS_ERRORS.keys():
+            if error_msg in openssl_error_message:
+                is_known_server_rejection_error = True
+                break
+
+        if is_known_server_rejection_error:
+            client_auth_requirement = ClientAuthRequirementEnum.REQUIRED
+        else:
+            raise
 
     finally:
         ssl_connection_auth.close()
