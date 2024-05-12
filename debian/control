@@ -6,30 +6,34 @@ Build-Depends: debhelper-compat (= 13),
                dh-python,
 	       faker,
                python3,
-               python3-cryptography,
-               python3-nassl (>= 4.0.2),
+               python3-cryptography (>= 42),
+               python3-nassl (>= 5.2.0-1kaisen),
 	       python3-pytest,
                python3-setuptools,
                python3-sphinx,
                python3-sphinx-rtd-theme,
-               python3-tls-parser (>= 2.0.0),
+               python3-tls-parser (>= 2.0.1-1kaisen),
                python3-typing-extensions,
 	       python3-pydantic,
-Standards-Version: 4.6.0
+Standards-Version: 4.7.0
 Homepage: https://github.com/nabla-c0d3/sslyze
 Vcs-Git: https://gitlab.com/kaisenlinux/packages/sslyze.git
 Vcs-Browser: https://gitlab.com/kaisenlinux/packages/sslyze
 
 Package: sslyze
 Architecture: all
-Depends: python3-nassl (>= 4.0.2),
+Depends: python3-nassl (>= 5.2.0-1kaisen),
          python3-pkg-resources,
-         python3-tls-parser (>= 2.0.0),
+         python3-tls-parser (>= 2.0.1-1kaisen),
          python3-typing-extensions,
 	 python3-pydantic,
-         ${misc:Depends},
-         ${python3:Depends},
-         ${sphinxdoc:Depends}
+#         ${misc:Depends},
+#         ${python3:Depends},
+#         ${sphinxdoc:Depends}
+	 python3-cryptography (>= 42),
+	 python3-openssl,
+	 python3:any,
+	 libjs-sphinxdoc (>= 5.2)
 Description: Fast and full-featured SSL scanner
  SSLyze is a Python tool that can analyze the SSL configuration
  of a server by connecting to it. It is designed to be fast and
