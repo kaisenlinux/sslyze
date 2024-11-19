@@ -67,8 +67,9 @@ class _SmtpHelper(_OpportunisticTlsHelper):
 
         # Send a EHLO and wait for the 250 status
         sock.send(b"EHLO sslyze.scan\r\n")
-        if b"250 " not in sock.recv(2048):
-            raise OpportunisticTlsError("SMTP EHLO was rejected")
+        data = sock.recv(2048)
+        if b"250 " not in data:
+            raise OpportunisticTlsError(f"SMTP EHLO was rejected: {repr(data)}")
 
         # Send a STARTTLS
         sock.send(b"STARTTLS\r\n")
@@ -177,7 +178,6 @@ class _GenericOpportunisticTlsHelper(_OpportunisticTlsHelper, ABC):
 
 
 class _ImapHelper(_GenericOpportunisticTlsHelper):
-
     ERR_NO_STARTTLS = "IMAP START TLS was rejected"
 
     START_TLS_CMD = b". STARTTLS\r\n"
@@ -185,7 +185,6 @@ class _ImapHelper(_GenericOpportunisticTlsHelper):
 
 
 class _Pop3Helper(_GenericOpportunisticTlsHelper):
-
     ERR_NO_STARTTLS = "POP START TLS was rejected"
 
     START_TLS_CMD = b"STLS\r\n"
@@ -193,7 +192,6 @@ class _Pop3Helper(_GenericOpportunisticTlsHelper):
 
 
 class _FtpHelper(_GenericOpportunisticTlsHelper):
-
     ERR_NO_STARTTLS = "FTP AUTH TLS was rejected"
 
     START_TLS_CMD = b"AUTH TLS\r\n"
@@ -201,7 +199,6 @@ class _FtpHelper(_GenericOpportunisticTlsHelper):
 
 
 class _PostgresHelper(_GenericOpportunisticTlsHelper):
-
     ERR_NO_STARTTLS = "Postgres AUTH TLS was rejected"
 
     START_TLS_CMD = b"\x00\x00\x00\x08\x04\xD2\x16\x2F"
