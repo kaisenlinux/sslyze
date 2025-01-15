@@ -1,3 +1,9 @@
+sslyze (6.1.0-1kaisen) kaisen-packages; urgency=medium
+
+  * Import the 6.1.0 release
+
+ -- Kevin Chevreuil - Kaisen <kaisen@kaisenlinux.org>  Wed, 15 Jan 2025 15:04:41 +0200
+
 sslyze (6.0.0-1kaisen) kaisen-packages; urgency=medium
 
   * Import the 6.0.0 release
